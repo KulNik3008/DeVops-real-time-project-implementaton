@@ -81,7 +81,7 @@ jobs:
 
          - name: Update tag in K8 manifest
            run: |
-            sed -i 's/image: .*tag/${{ secret.DOCKER_USERNAME }}/product-catalogue/${{github.run.id }}
+            sed -i 's/image: .*tag/${{ secrets.DOCKER_USERNAME }}/product-catalogue/${{github.run.id }}
 
          - name: Git commit & Push
            run: |
