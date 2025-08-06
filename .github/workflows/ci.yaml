@@ -19,16 +19,16 @@ jobs:
               with:
                 go-version: 1.22
             
-            - name: Build the product-catalogue service
+            - name: Build the product-catalog service
               run: |
-                  cd src/product-catalogue
+                  cd src/product-catalog
                   go mod download
-                  go build -o product-catalogue src/product-catalogue/main.go
+                  go build -o product-catalog src/product-catalog/main.go
 
             - name: run unit test
               run: |
-                  cd src/product-catalogue
-                  go test src/product-catalogue/..
+                  cd src/product-catalog
+                  go test src/product-catalog/..
     
     code-quality:
         runs-on: ubuntu-latest
@@ -64,10 +64,10 @@ jobs:
             - name: Build and push Docker image
               uses: docker/build-push-action@v5
               with:
-                 context: src/product-catalogue
+                 context: src/product-catalog
                  file: Dockerfile
                  push: true
-                 tags: ${{ secrets.DOCKER_USERNAME }}/product-catalogue/${{ github.run_id }}
+                 tags: ${{ secrets.DOCKER_USERNAME }}/product-catalog/${{ github.run_id }}
 
 
     Updae-k8s:
@@ -81,14 +81,14 @@ jobs:
 
          - name: Update tag in K8 manifest
            run: |
-            sed -i 's/image: .*tag/${{ secrets.DOCKER_USERNAME }}/product-catalogue/${{github.run.id }}
+            sed -i 's/image: .*tag/${{ secrets.DOCKER_USERNAME }}/product-catalog/${{github.run.id }}
 
          - name: Git commit & Push
            run: |
             git config --global user.email "niketakulshrestha2026@gmail.com"
             git config --global user.name "Niketa"
             git add .
-            git commit -m "[CI]: uPDATE PRODUCT CATALOGUE SERVICE TAG"
+            git commit -m "[CI]: uPDATE PRODUCT CATALOG SERVICE TAG"
             git push origin HEAD:main -f
            
     
