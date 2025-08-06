@@ -19,7 +19,10 @@ jobs:
                 go-version: 1.22
             
             - name: Build the product-catalogue service
-              run: go build -o product-catalogue src/product-catalogue/main.go
+              run: |
+                  cd src/product-catalogue
+                  go mod download
+                  go build -o product-catalogue src/product-catalogue/main.go
 
             - name: run unit test
               run: go test src/product-catalogue/..
