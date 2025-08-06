@@ -23,12 +23,12 @@ jobs:
               run: |
                   cd src/product-catalog
                   go mod download
-                  go build -o product-catalog src/product-catalog/main.go
+                  go build -o product-catalog main.go
 
             - name: run unit test
               run: |
                   cd src/product-catalog
-                  go test src/product-catalog/..
+                  go test ./...
     
     code-quality:
         runs-on: ubuntu-latest
